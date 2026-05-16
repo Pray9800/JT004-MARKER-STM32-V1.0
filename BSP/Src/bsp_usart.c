@@ -5,7 +5,7 @@
 
 
 uint8_t rx_temp; // 单字节接收缓存
-uint8_t UART1_Rxbuff[50];
+static uint8_t UART1_Rxbuff[50];
 uart1_data_t  UR_Send_Msg;
 volatile uint8_t UR_Send_packet_ready=0;
 uint8_t uart_tt[7] = {0xa5,0x5a,0x0a,0x01,0x00,0xb6,0x6b}; //测试

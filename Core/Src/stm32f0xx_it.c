@@ -43,9 +43,7 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 // 先在文件最前面引用外部变量
-extern uint8_t rx_temp;
-extern UART_HandleTypeDef huart1;
-extern  uint8_t UART1_Rxbuff[50];
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/

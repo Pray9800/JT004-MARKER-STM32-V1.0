@@ -27,7 +27,6 @@ typedef struct{
 extern volatile uint8_t blink_flag;
 extern uart1_data_t  UR_Send_Msg;
 extern volatile uint8_t UR_Send_packet_ready;
-extern uint8_t UART1_Rxbuff[50];
 
 extern uint8_t rx_temp; // 声明刚刚定义的单字节缓存
 void MCU_UR_Receive_IT_Start( uint8_t *pData, uint16_t Size);

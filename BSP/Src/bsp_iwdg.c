@@ -1,6 +1,5 @@
   #include "bsp_iwdg.h"
-
-    #include "stdio.h"
+  #include "stdio.h"
 
 
   void IWDG_Refresh()

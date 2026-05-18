@@ -7,7 +7,15 @@
 
 
 
-
+/*******************************************************
+ Author: PAN       Version: V1.0       Date:2026/05/11
+ Function:          Key_Scan_Once
+ Description:       闪烁10hz 检验程序是否正常运行
+ Input:             
+ Output:            按键代表的数值
+ Return:            无
+ Others:            无
+*******************************************************/
 void blink()
 {
     HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);

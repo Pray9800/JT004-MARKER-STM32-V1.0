@@ -34,7 +34,15 @@ void Sys_Delay(uint16_t time_ms)
 
 
 
-  //定时器中断回调
+/*******************************************************
+ Author: PAN        Version: V1.0       Date:2026/05/18
+ Function:          HAL_TIM_PeriodElapsedCallback
+ Description:       定时器回调
+ Input:             tim7          
+ Output:            改变计数值
+ Return:            无
+ Others:            无
+*******************************************************/
   void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
     if(htim->Instance == TIM17)

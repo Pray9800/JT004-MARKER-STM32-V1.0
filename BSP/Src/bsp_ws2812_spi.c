@@ -1,13 +1,20 @@
 #include "bsp_ws2812_spi.h"
-#include "spi.h" // 确保包含了 CubeMX 生成的 spi.h
+#include "spi.h" 
 #include "string.h"
 
 // DMA 发送缓冲区
 uint8_t ws_spi_data[WS_SPI_BUF_SIZE] = {0};
 
 /*******************************************************
- Function:    ws2812_spi_init
- Description: 初始化缓冲区，将最后 40 字节清零作为复位信号
+ Author:        PAN
+ Version:       V1.0
+ Date:          2026/05/18
+ Function:      ws2812_spi_init
+ Description:   初始化 WS2812 SPI 数据缓冲区
+ Input:         无
+ Output:        初始化全局 SPI 发送缓冲区 ws_spi_data
+ Return:        无
+ Others:        末尾约 40 字节保持 0x00 以满足 WS2812 复位低电平要求
 *******************************************************/
 void ws2812_spi_init(void)
 {
@@ -16,10 +23,18 @@ void ws2812_spi_init(void)
 }
 
 /*******************************************************
- Function:    WS_Set_Color_Spi
- Description: 将 RGB 颜色转换为 SPI 数据并存入数组
- Input:       index: 灯珠序号 (0 开始)
-              r, g, b: 颜色值
+ Author:        PAN
+ Version:       V1.0
+ Date:          2026/05/18
+ Function:      WS_Set_Color_Spi
+ Description:   将单个 WS2812 灯珠的 RGB 颜色转换为 SPI 发送编码并写入缓存
+ Input:         index: 灯珠序号 (0 开始)
+                r: 红色分量 (0~255)
+                g: 绿色分量 (0~255)
+                b: 蓝色分量 (0~255)
+ Output:        按照 WS2812 SPI 编码规则填充 ws_spi_data 对应位置
+ Return:        无
+ Others:        WS2812 数据顺序为 G-R-B，编码 0/1 分别使用 WS_CODE_0 / WS_CODE_1
 *******************************************************/
 static void WS_Set_Color_Spi(uint16_t index, uint8_t r, uint8_t g, uint8_t b)
 {
@@ -46,8 +61,13 @@ static void WS_Set_Color_Spi(uint16_t index, uint8_t r, uint8_t g, uint8_t b)
 }
 
 /*******************************************************
- Function:    ws2812_refresh
- Description: 启动 DMA 发送 (非阻塞，极速完成，不干扰中断)
+ Author:        PAN          Version:       V1.0
+ Date:          2026/05/18   Function:      ws2812_refresh_spi
+ Description:   通过 DMA 启动 SPI 发送 ws_spi_data 缓冲区数据
+ Input:         无
+ Output:        触发 WS2812 数据发送
+ Return:        无
+ Others:        仅在 SPI 空闲时调用，避免覆盖正在进行的 DMA 传输
 *******************************************************/
 void ws2812_refresh_spi(void)
 {
@@ -60,8 +80,16 @@ void ws2812_refresh_spi(void)
 }
 
 /*******************************************************
- Function:    ws2812_set_num
- Description: 设置前 N 颗灯的颜色并立刻刷新
+ Author:        PAN             Version:       V1.0
+ Date:          2026/05/18      Function:      ws2812_set_num_spi
+ Description:   将前 num 颗 WS2812 灯珠设置为指定颜色并立即刷新输出
+ Input:         num: 要设置的灯珠数量
+                r: 红色分量 (0~255)
+                g: 绿色分量 (0~255)
+                b: 蓝色分量 (0~255)
+ Output:        更新 ws_spi_data，触发 DMA SPI 发送
+ Return:        无
+ Others:        num 超出范围时自动截断为 WS_ARRAY_SIZE；等待 SPI 空闲后才发送
 *******************************************************/
 void ws2812_set_num_spi(uint16_t num, uint8_t r, uint8_t g, uint8_t b)
 {
@@ -70,7 +98,7 @@ void ws2812_set_num_spi(uint16_t num, uint8_t r, uint8_t g, uint8_t b)
     {
         // 阻塞等待
     }
-    // 清空前面的颜色缓存 (防止变暗/变色时残留旧数据)
+    // 清空前面的颜色缓存 
     memset(ws_spi_data, WS_CODE_0, WS_ARRAY_SIZE * 24);
     
     for (uint16_t i = 0; i < num; i++)
@@ -82,8 +110,16 @@ void ws2812_set_num_spi(uint16_t num, uint8_t r, uint8_t g, uint8_t b)
 }
 
 /*******************************************************
- Function:    ws2812_rgb_all
- Description: （不立刻刷新）
+ Author:        PAN             Version:       V1.0
+ Date:          2026/05/18      Function:      ws2812_rgb_all_spi
+ Description:   将前 ws_count 颗 WS2812 灯珠缓存为指定颜色，但不立即发送
+ Input:         ws_count: 要设置的灯珠数量
+                r: 红色分量 (0~255)
+                g: 绿色分量 (0~255)
+                b: 蓝色分量 (0~255)
+ Output:        更新 ws_spi_data，对应灯珠颜色已缓存
+ Return:        无
+ Others:        设置完成后需调用 ws2812_refresh_spi 才会输出到灯带
 *******************************************************/
 void ws2812_rgb_all_spi(uint8_t ws_count, uint8_t r, uint8_t g, uint8_t b)	
 {

@@ -3,7 +3,7 @@
 
 #include "main.h"
 
-// 你实际使用的灯珠数量
+// 灯珠数量
 #define WS_ARRAY_SIZE 18  
 
 // 编码定义 (基于 6.0MHz SPI 波特率)
@@ -27,7 +27,7 @@
    │ 1  1  1  1  1         │ 0  0  0│
 ───┘                       └────────┘
  */
-
+//基于6MB/S的SPI波特率
 // 缓冲数组大小: 每个灯珠 24 bits (对应 24 Bytes SPI 数据) + 250 Bytes 的复位信号(>280us低电平)
 #define WS_SPI_BUF_SIZE  (WS_ARRAY_SIZE * 24 + 300)
 

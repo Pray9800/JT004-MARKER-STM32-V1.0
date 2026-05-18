@@ -48,8 +48,11 @@ void task()
         Sys_Delay(500);//延时
         ws2812_set_num_spi(WS_ARRAY_SIZE, 0, 0, 255); //颜色初始化
         Sys_Delay(500);//延时
-        ws2812_set_num_spi(WS_ARRAY_SIZE, 0, 255, 0); //颜色初始化
+            ws2812_set_num_spi(WS_ARRAY_SIZE, 0, 0, 255); //颜色初始化
+      ///  ws2812_set_num_spi(WS_ARRAY_SIZE, 0, 255, 0); //颜色初始化
         Sys_Delay(500);//延时
+        ws2812_set_num_spi(WS_ARRAY_SIZE, 255, 0, 0); //颜色初始化    
+       Sys_Delay(500);//延时
         ws2812_set_num_spi(WS_ARRAY_SIZE, 255, 0, 0); //颜色初始化    
 
          
@@ -145,7 +148,7 @@ void task()
             }
         }
           
-          IWDG_Refresh(); //看门狗刷新
+        //   IWDG_Refresh(); //看门狗刷新
         
 
     }      

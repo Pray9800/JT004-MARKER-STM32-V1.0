@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "iwdg.h"
+#include "spi.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -93,6 +94,7 @@ int main(void)
   MX_TIM16_Init();
   MX_TIM17_Init();
   MX_IWDG_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
   
     task(); 
@@ -104,7 +106,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    
+
     /* USER CODE BEGIN 3 */
 
 

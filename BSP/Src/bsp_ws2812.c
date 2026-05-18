@@ -1,5 +1,7 @@
 #include "bsp_ws2812.h"
 
+
+#if 0
 // 数据缓存数组，每个灯珠需要 3 个字节 (G, R, B)
 uint8_t ws_data[WS_ARRAY_SIZE * 3] = {0};
 
@@ -157,3 +159,6 @@ void ws2812_set_num(uint16_t num, uint8_t r, uint8_t g, uint8_t b)
     // 立即调用底层刷新硬件
     ws2812_refresh(num);
 }
+
+
+#endif

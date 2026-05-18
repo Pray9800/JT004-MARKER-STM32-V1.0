@@ -19,7 +19,7 @@
 #include <stdint.h>
 
  
-
+#if 0
 // 使用寄存器直接操作  寄存器方式
 #define LED_C_H    (LED_C_GPIO_Port->BSRR = LED_C_Pin)  
 #define LED_C_L    (LED_C_GPIO_Port->BRR  = LED_C_Pin)  
@@ -32,4 +32,5 @@ void ws2812_refresh(uint8_t ws_count);
 void ws2812_rgb_all(uint8_t ws_count, uint8_t ws_r, uint8_t ws_g, uint8_t ws_b);
 void ws2812_set_num(uint16_t num, uint8_t r, uint8_t g, uint8_t b);
 
+#endif
 #endif

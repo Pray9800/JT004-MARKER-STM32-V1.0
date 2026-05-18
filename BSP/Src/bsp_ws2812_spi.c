@@ -16,12 +16,12 @@ void ws2812_spi_init(void)
 }
 
 /*******************************************************
- Function:    WS_Set_Color
+ Function:    WS_Set_Color_Spi
  Description: 将 RGB 颜色转换为 SPI 数据并存入数组
  Input:       index: 灯珠序号 (0 开始)
               r, g, b: 颜色值
 *******************************************************/
-static void WS_Set_Color(uint16_t index, uint8_t r, uint8_t g, uint8_t b)
+static void WS_Set_Color_Spi(uint16_t index, uint8_t r, uint8_t g, uint8_t b)
 {
     if(index >= WS_ARRAY_SIZE) return; // 防越界
     
@@ -49,12 +49,12 @@ static void WS_Set_Color(uint16_t index, uint8_t r, uint8_t g, uint8_t b)
  Function:    ws2812_refresh
  Description: 启动 DMA 发送 (非阻塞，极速完成，不干扰中断)
 *******************************************************/
-void ws2812_refresh(void)
+void ws2812_refresh_spi(void)
 {
     // 发送前确保上一次 DMA 传输已经结束
     if (HAL_SPI_GetState(&hspi1) == HAL_SPI_STATE_READY) 
     {
-        // 使用 DMA 模式一键发送，全程无需 CPU 干预
+        // SPI_DMA发送
         HAL_SPI_Transmit_DMA(&hspi1, ws_spi_data, WS_SPI_BUF_SIZE);
     }
 }
@@ -63,7 +63,7 @@ void ws2812_refresh(void)
  Function:    ws2812_set_num
  Description: 设置前 N 颗灯的颜色并立刻刷新
 *******************************************************/
-void ws2812_set_num(uint16_t num, uint8_t r, uint8_t g, uint8_t b)
+void ws2812_set_num_spi(uint16_t num, uint8_t r, uint8_t g, uint8_t b)
 {
     if (num > WS_ARRAY_SIZE) num = WS_ARRAY_SIZE;
     
@@ -72,22 +72,22 @@ void ws2812_set_num(uint16_t num, uint8_t r, uint8_t g, uint8_t b)
     
     for (uint16_t i = 0; i < num; i++)
     {
-        WS_Set_Color(i, r, g, b);
+        WS_Set_Color_Spi(i, r, g, b);
     }
     
-    ws2812_refresh();
+    ws2812_refresh_spi();
 }
 
 /*******************************************************
  Function:    ws2812_rgb_all
- Description: 将所有灯设置为同一颜色（不立刻刷新）
+ Description: （不立刻刷新）
 *******************************************************/
-void ws2812_rgb_all(uint8_t ws_count, uint8_t r, uint8_t g, uint8_t b)	
+void ws2812_rgb_all_spi(uint8_t ws_count, uint8_t r, uint8_t g, uint8_t b)	
 {
     if (ws_count > WS_ARRAY_SIZE) ws_count = WS_ARRAY_SIZE;
     
     for(uint16_t i = 0; i < ws_count; i++)
     {
-        WS_Set_Color(i, r, g, b);
+        WS_Set_Color_Spi(i, r, g, b);
     }
 }

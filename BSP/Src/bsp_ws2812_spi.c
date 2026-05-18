@@ -66,7 +66,10 @@ void ws2812_refresh_spi(void)
 void ws2812_set_num_spi(uint16_t num, uint8_t r, uint8_t g, uint8_t b)
 {
     if (num > WS_ARRAY_SIZE) num = WS_ARRAY_SIZE;
-    
+    while (HAL_SPI_GetState(&hspi1) != HAL_SPI_STATE_READY) 
+    {
+        // 阻塞等待
+    }
     // 清空前面的颜色缓存 (防止变暗/变色时残留旧数据)
     memset(ws_spi_data, WS_CODE_0, WS_ARRAY_SIZE * 24);
     

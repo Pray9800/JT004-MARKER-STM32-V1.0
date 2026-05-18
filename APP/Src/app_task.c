@@ -43,18 +43,7 @@ void task()
   
     while (1)
     {         
-        
-        ws2812_set_num_spi(WS_ARRAY_SIZE, 100, 100, 100); //颜色初始化
-        Sys_Delay(500);//延时
-        ws2812_set_num_spi(WS_ARRAY_SIZE, 0, 0, 255); //颜色初始化
-        Sys_Delay(500);//延时
-            ws2812_set_num_spi(WS_ARRAY_SIZE, 0, 0, 255); //颜色初始化
-      ///  ws2812_set_num_spi(WS_ARRAY_SIZE, 0, 255, 0); //颜色初始化
-        Sys_Delay(500);//延时
-        ws2812_set_num_spi(WS_ARRAY_SIZE, 255, 0, 0); //颜色初始化    
-       Sys_Delay(500);//延时
-        ws2812_set_num_spi(WS_ARRAY_SIZE, 255, 0, 0); //颜色初始化    
-
+             
          
          //闪烁 50ms延时
           if(blink_cnt>=blink_fre_100ms) //100ms 频率在tim17里面计时      
@@ -148,7 +137,7 @@ void task()
             }
         }
           
-        //   IWDG_Refresh(); //看门狗刷新
+          IWDG_Refresh(); //看门狗刷新
         
 
     }      

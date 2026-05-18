@@ -29,7 +29,7 @@
  */
 
 // 缓冲数组大小: 每个灯珠 24 bits (对应 24 Bytes SPI 数据) + 250 Bytes 的复位信号(>280us低电平)
-#define WS_SPI_BUF_SIZE  (WS_ARRAY_SIZE * 24 + 250)
+#define WS_SPI_BUF_SIZE  (WS_ARRAY_SIZE * 24 + 300)
 
 extern uint8_t ws_spi_data[WS_SPI_BUF_SIZE];
 

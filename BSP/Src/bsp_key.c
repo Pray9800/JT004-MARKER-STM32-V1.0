@@ -1,6 +1,8 @@
 
 
 #include "bsp_key.h"
+
+#include "bsp_tim.h"
 #include "stm32f0xx_hal.h"
 
 
@@ -9,7 +11,7 @@
 void blink()
 {
     HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
-    // HAL_Delay(50);
+    Sys_Delay(50);
 
 }
 

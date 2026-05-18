@@ -41,14 +41,15 @@ void task()
   
     while (1)
     {         
-       
-       //闪烁
-        if(blink_cnt==blink_fre_100ms) //50ms 频率在tim17里面计时
-        {
+        //  MCU_UR_Send(uart_key, sizeof(uart_key)); //嵌入格式发送
+        //     Sys_Delay(200); //每秒发送一次测试数据
+         //闪烁 50ms延时
+          if(blink_cnt>=blink_fre_100ms) //100ms 频率在tim17里面计时  
+          
+          {
             blink(); 
-            blink_cnt=0;
-
-        }
+            blink_cnt=0; //闪烁计数清零
+          }
      
         //按键读取
          g_keys_value=Key_Process_Scan();   //周期性扫描 10ms 消抖
@@ -135,7 +136,7 @@ void task()
             }
         }
           
-        //   IWDG_Refresh(); //看门狗刷新
+          IWDG_Refresh(); //看门狗刷新
         
 
     }      

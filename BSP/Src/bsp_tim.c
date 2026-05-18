@@ -7,7 +7,7 @@
 
 volatile uint8_t g_timer_cnt = 0; // 1ms 计时位 
 
-volatile uint8_t blink_cnt=0;     //led闪烁计时
+volatile uint8_t blink_cnt;     //led闪烁计时
  
 /*******************************************************
  Author: PAN        Version: V1.0       Date:2026/05/11

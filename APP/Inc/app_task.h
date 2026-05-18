@@ -11,7 +11,7 @@
 #ifndef __APP_TASK_H_
 #define __APP_TASK_H_
 
-#define blink_fre_100ms   100//led 闪烁频率
+#define blink_fre_100ms   50//led 闪烁频率
 #define BRIGHTNESS 100   //亮度
 
 void task_init();

@@ -51,8 +51,8 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/BSP/Src/bsp_usart.c
     ${CMAKE_CURRENT_SOURCE_DIR}/BSP/Src/bsp_ws2812.c
     ${CMAKE_CURRENT_SOURCE_DIR}/BSP/Src/bsp_iwdg.c
-     ${CMAKE_CURRENT_SOURCE_DIR}/BSP/Src/bsp_tim.c
- 
+    ${CMAKE_CURRENT_SOURCE_DIR}/BSP/Src/bsp_tim.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/BSP/Src/bsp_ws2812_spi.c
 # Add user sources here
 )
 

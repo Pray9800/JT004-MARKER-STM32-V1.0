@@ -146,8 +146,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
                     UR_Send_Msg.len = UART1_Rxbuff[3];
                     UR_Send_Msg.data = UART1_Rxbuff[4];  //后续出现双字节数据 需要优化
                     UR_Send_packet_ready = 1; // 灯带控制标志位
-                    blink_flag = 0;
-                    HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+                    //blink_flag = 0;
+                 //   HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
                     rx_cnt = 0; // 成功解析一条，计数器清零，准备收下一条
                 }
                 else if (rx_cnt > 10) // 超出10个字节的边界 代表收到现在还是没有收到B6 6B

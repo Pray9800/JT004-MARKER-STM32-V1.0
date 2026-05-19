@@ -58,6 +58,7 @@ void task()
         if(g_keys_value !=  g_keys_value_last)
         {    
             uart_key[4] = g_keys_value;  //按键信号赋值 
+            // blink(); 
             MCU_UR_Send(uart_key, sizeof(uart_key)); //嵌入格式发送
             Sys_Delay(10);
             g_keys_value_last = g_keys_value;
@@ -68,7 +69,7 @@ void task()
         {     
             
             // 暂时没有CMD区分
-            g_rgb_sign = UR_Send_Msg.data; //赋值
+                g_rgb_sign = UR_Send_Msg.data; //赋值
                 if(g_rgb_sign == 4) //红
                 {
                      g_rgb_value = 4;//0x0100红色刷新指令

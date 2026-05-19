@@ -19,7 +19,7 @@
 void blink()
 {
     HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
-    Sys_Delay(50);
+    //Sys_Delay(50);
 
 }
 
